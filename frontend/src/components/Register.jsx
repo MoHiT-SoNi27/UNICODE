@@ -12,6 +12,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    console.log(username,
+      email,
+      leetcodeEmail,
+      password)
     e.preventDefault();
     if (password !== confirmPassword) {
       setError('Passwords do not match');

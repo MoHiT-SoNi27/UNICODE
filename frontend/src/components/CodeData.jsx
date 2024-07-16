@@ -13,6 +13,7 @@ const CodeData = () => {
             'x-auth-token': localStorage.getItem('token'),
           },
         });
+        console.log(response)
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -26,8 +27,7 @@ const CodeData = () => {
 
   return (
     <>
-      <Header />
-      <div className="container mx-auto p-4 text-white">
+      <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">LeetCode Data</h2>
         <p>Total Solved: {data.totalSolved}</p>
         <p>Total Questions: {data.totalQuestions}</p>

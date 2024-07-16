@@ -13,8 +13,8 @@ const app = express();
 connectDB();
 
 // Middleware
+app.use(express.json());
 app.use(cors());
-app.use(express.json({ extended: false }));
 
 // Define Routes
 app.use('/api/auth', authRoutes);

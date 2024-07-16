@@ -17,13 +17,12 @@ router.post(
     body('password', 'Password must be 6 or more characters').isLength({ min: 6 }),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
 
-    const { username, email, password } = req.body;
-
+    const { username, email, password, leetcodeEmail } = req.body;
     try {
       let user = await User.findOne({ email });
       if (user) {
@@ -41,6 +40,40 @@ router.post(
 
       await user.save();
 
+      res.json({ message: "User Registered Successfully" });
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// Login Endpoint
+router.post(
+  '/login',
+  [
+    body('email', 'Please include a valid email').isEmail(),
+    body('password', 'Password is required').exists(),
+  ],
+  async (req, res) => {
+
+    const { email, password } = req.body;
+
+    try {
+
+      let user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(400).json({ msg: 'User does not exists' });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        return res.status(400).json({ msg: 'Invalid Credentials' });
+      }
+
       const payload = {
         user: {
           id: user.id,
@@ -53,7 +86,9 @@ router.post(
         { expiresIn: '1h' },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          user = user.toObject();
+          delete user.password;
+          res.json({ token, user, message: "Logged in Successfully" });
         }
       );
     } catch (err) {
