@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from './Header';
 
 const CodeData = () => {
   const [data, setData] = useState(null);
