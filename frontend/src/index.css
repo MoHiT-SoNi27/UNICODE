@@ -3,3 +3,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.visualizer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .array-container {
+    display: flex;
+    align-items: flex-end;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .slider {
+    width: 200px;
+  }
