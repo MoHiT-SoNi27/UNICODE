@@ -26,7 +26,7 @@ const Header = () => {
         <div className="text-2xl font-bold"><Link to="/homepage" className="hover:text-orange-500">UNICODE</Link></div>
         <nav className="space-x-4">
           <Link to="/homepage" className="hover:text-orange-500">Home</Link>
-          <Link to="/codedata" className="hover:text-orange-500">CodeData</Link>
+          <Link to="/visualizer1" className="hover:text-orange-500">Visualizer1</Link>
           <Link to="/compete" className="hover:text-orange-500">Compete</Link>
           <Link to="/jobs" className="hover:text-orange-500">Jobs</Link>
           <Link to="/about" className="hover:text-orange-500">About Us</Link>

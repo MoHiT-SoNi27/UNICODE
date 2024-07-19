@@ -5,7 +5,7 @@ import HomePage from './components/HomePage';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import CodeData from './components/CodeData';
+import Visualizer1 from './components/Visualizer1';
 import Compete from './components/Compete';
 import Jobs from './components/Jobs';
 import About from './components/About';
@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/homepage" element={<HomePage />} />
-        <Route path="/codedata" element={<ProtectedRoute><CodeData /></ProtectedRoute>} />
+        <Route path="/visualizer1" element={<ProtectedRoute><Visualizer1 /></ProtectedRoute>} />
         <Route path="/compete" element={<ProtectedRoute><Compete /></ProtectedRoute>} />
         <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
