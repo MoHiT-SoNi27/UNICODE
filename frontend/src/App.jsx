@@ -6,12 +6,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import Visualizer1 from './components/Visualizer1';
-import Compete from './components/Compete';
 import Jobs from './components/Jobs';
 import About from './components/About';
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import Compete from './components/Compete'
 const App = () => {
   return (
     <Router>
