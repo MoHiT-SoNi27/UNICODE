@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { bubbleSort, selectionSort, insertionSort } from './sortingAlgorithms';
+import { bubbleSort, selectionSort, insertionSort, quickSort, mergeSort } from './sortingAlgorithms';
 
 const Visualizer = () => {
   const [array, setArray] = useState([]);
@@ -7,6 +7,7 @@ const Visualizer = () => {
   const [inputArray, setInputArray] = useState("");
   const [isSorting, setIsSorting] = useState(false);
   const [algorithm, setAlgorithm] = useState("bubbleSort");
+  const [speed, setSpeed] = useState(50); 
   const containerHeight = 400;
 
   useEffect(() => {
@@ -19,6 +20,14 @@ const Visualizer = () => {
       newArray.push(Math.floor(Math.random() * 100) + 1);
     }
     setArray(newArray);
+    resetBarColors();
+  };
+
+  const resetBarColors = () => {
+    const arrayBars = document.getElementsByClassName('array-bar');
+    for (let i = 0; i < arrayBars.length; i++) {
+      arrayBars[i].style.backgroundColor = 'blue';
+    }
   };
 
   const handleInputChange = (e) => {
@@ -47,6 +56,12 @@ const Visualizer = () => {
       case "insertionSort":
         animations = insertionSort(array);
         break;
+      case "quickSort":
+        animations = quickSort(array);
+        break;
+      case "mergeSort":
+        animations = mergeSort(array);
+        break;
       default:
         break;
     }
@@ -54,7 +69,7 @@ const Visualizer = () => {
   };
 
   const animateSorting = (animations) => {
-    const animationSpeed = 100; // Increase delay to slow down the animation
+    const animationSpeed = 100 - speed; // Adjust speed based on the slider value
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
       const isColorChange = animations[i].length === 3;
@@ -77,7 +92,6 @@ const Visualizer = () => {
     }
     setTimeout(() => setIsSorting(false), animations.length * animationSpeed);
   };
-  
 
   // Normalize values to fit within the container height
   const maxValue = Math.max(...array, 1);
@@ -88,19 +102,32 @@ const Visualizer = () => {
 
   return (
     <div className="visualizer-container">
-      <div className="controls mb-4">
+      <div className="controls my-4 bg-gray-900 text-white rounded-3xl p-5 ">
         <div className="random-array mb-2">
           <label className="mr-2">Array Size:</label>
           <input
             type="range"
             min="10"
-            max="200"
+            max="150"
             value={size}
             onChange={(e) => setSize(e.target.value)}
             className="slider"
             disabled={isSorting}
           />
           <span className="ml-2">{size}</span>
+        </div>
+        <div className="speed-control mb-2">
+          <label className="mr-2">Animation Speed:</label>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value={speed}
+            onChange={(e) => setSpeed(e.target.value)}
+            className="slider"
+            disabled={isSorting}
+          />
+          <span className="ml-2">{speed}</span>
         </div>
         <button onClick={resetArray} className="bg-blue-500 text-white px-4 py-2 rounded mb-2" disabled={isSorting}>
           Generate New Array
@@ -114,29 +141,28 @@ const Visualizer = () => {
             className="border p-1"
             disabled={isSorting}
           />
-          <button onClick={handleSubmit} className="bg-green-500 text-white px-4 py-1 rounded ml-2" disabled={isSorting}>
+          <button onClick={handleSubmit} className="bg-green-500 text-white px-4 py-1 rounded ml-2 hover:bg-green-800" disabled={isSorting}>
             Submit
           </button>
         </div>
         <div className="sorting-controls mb-2">
           <label className="mr-2">Choose Algorithm:</label>
-          <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)} disabled={isSorting}>
+          <select className='text-black font-bold' value={algorithm} onChange={(e) => setAlgorithm(e.target.value)} disabled={isSorting}>
             <option value="bubbleSort">Bubble Sort</option>
             <option value="selectionSort">Selection Sort</option>
             <option value="insertionSort">Insertion Sort</option>
+            <option value="quickSort">Quick Sort</option>
+            <option value="mergeSort">Merge Sort</option>
           </select>
-          <button onClick={handleSort} className="bg-purple-500 text-white px-4 py-2 rounded ml-2" disabled={isSorting}>
+          <button onClick={handleSort} className="bg-purple-500 text-white px-4 py-2 rounded ml-2 hover:bg-purple-800" disabled={isSorting}>
             Sort
-          </button>
-          <button onClick={handleSort} className="bg-pink-500 text-white px-4 py-2 rounded ml-2" disabled={isSorting}>
-            Stop
           </button>
         </div>
       </div>
-      <div className="array-container mt-4" style={{ height: `${containerHeight}px` }}>
+      <div className="array-container p-4 flex justify-center" style={{ height: `${containerHeight}px` }}>
         {normalizedArray.map((value, idx) => (
           <div
-            className="array-bar bg-blue-500 inline-block mx-1"
+            className="array-bar bg-blue-500 inline-block mx-1 rounded-t-md"
             key={idx}
             style={{ height: `${value}%`, width: `${barWidth}px` }}
           ></div>

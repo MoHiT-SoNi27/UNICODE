@@ -63,7 +63,7 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <input
                 type="email"
                 id="leetcodeEmail"
@@ -73,7 +73,7 @@ const Register = () => {
                 onChange={(e) => setLeetcodeEmail(e.target.value)}
                 required
               />
-            </div>
+            </div> */}
             <div className="mb-4">
               <input
                 type="password"

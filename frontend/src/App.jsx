@@ -10,7 +10,7 @@ import Jobs from './components/Jobs';
 import About from './components/About';
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute';
-import Compete from './components/Compete'
+import Pathfind from './components/Pathfind';
 const App = () => {
   return (
     <Router>
@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/visualizer1" element={<ProtectedRoute><Visualizer1 /></ProtectedRoute>} />
-        <Route path="/compete" element={<ProtectedRoute><Compete /></ProtectedRoute>} />
+        <Route path="/compete" element={<ProtectedRoute><Pathfind /></ProtectedRoute>} />
         <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
